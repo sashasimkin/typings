@@ -4,8 +4,8 @@ const inputField = document.querySelector('#input-field');
 
 // Initialize typing mode variables
 let typingMode = 'wordcount';
-let wordCount;
-let timeCount;
+let wordCount = 10;
+let timeCount = 60;
 
 // Initialize dynamic variables
 let randomWords = [];
@@ -20,10 +20,11 @@ let punctuation = false;
 // Get cookies
 getCookie('theme') === '' ? setTheme('light') : setTheme(getCookie('theme'));
 getCookie('language') === '' ? setLanguage('english') : setLanguage(getCookie('language'));
-getCookie('wordCount') === '' ? setWordCount(50) : setWordCount(getCookie('wordCount'));
-getCookie('timeCount') === '' ? setTimeCount(60) : setTimeCount(getCookie('timeCount'));
-getCookie('typingMode') === '' ? setTypingMode('wordcount') : setTypingMode(getCookie('typingMode'));
-getCookie('punctuation') === '' ? setPunctuation('false') : setPunctuation(getCookie('punctuation'));
+// setWordCount(50);
+setTimeCount(60);
+// getCookie('punctuation') === '' ? setPunctuation('false') : setPunctuation(getCookie('punctuation'));
+// getCookie('timeCount') === '' ? setTimeCount(60) : setTimeCount(getCookie('timeCount'));
+setTypingMode('time');
 
 // Find a list of words and display it to textDisplay
 function setText() {
@@ -279,6 +280,10 @@ function setTheme(_theme) {
 }
 
 function setLanguage(_lang) {
+  if (_lang !== 'english') {
+    alert("english only, don't cheat :-)");
+  }
+
   const lang = _lang.toLowerCase();
   fetch('texts/random.json')
     .then(response => response.json())
@@ -295,6 +300,10 @@ function setLanguage(_lang) {
 }
 
 function setTypingMode(_mode) {
+  if (_mode !== 'time') {
+    alert("Don't :->");
+  }
+
   const mode = _mode.toLowerCase();
   switch (mode) {
     case 'wordcount':
@@ -317,6 +326,8 @@ function setTypingMode(_mode) {
 }
 
 function setPunctuation(_punc) {
+  alert('Noup.');
+
   const punc = _punc.toLowerCase();
   if (punc === 'true') {
     punctuation = true;
@@ -330,6 +341,8 @@ function setPunctuation(_punc) {
 }
 
 function setWordCount(wc) {
+  alert("Makes no sense, really.");
+
   setCookie('wordCount', wc, 90);
   wordCount = wc;
   document.querySelectorAll('#word-count > span').forEach(e => (e.style.borderBottom = ''));
@@ -435,5 +448,3 @@ function hideThemeCenter() {
   document.getElementById('theme-center').classList.add('hidden');
   document.getElementById('command-center').classList.remove('hidden');
 }
-
-
