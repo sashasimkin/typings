@@ -126,8 +126,25 @@ body {
   display: none !important;
 }
 
-body, #header, #left-wing, #right-wing, #typing-area, #theme-area, #theme-center,
+body, #header, #left-wing, #right-wing, #typing-area, #description, #scoreboard, #theme-area, #theme-center,
 #text-display, #redo-button, #footer, #highlight {
   transition: all .4s ease-in-out 0s;
 
+}
+
+#description {
+    background-color: #3B5193;
+    border-radius: 0.4rem;
+    padding: 1.4rem 1rem;
+}
+
+.completed {
+  background-color: #9BC84A !important;
+}
+
+#scoreboard {
+  margin-top: 1rem;
+  padding: 1.4rem 1rem;
+  border-radius: 0.4rem;
+  background: #c6e8f5;
 }

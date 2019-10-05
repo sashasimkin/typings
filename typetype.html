@@ -24,10 +24,23 @@
   <body>
     <h2 id="header">TC typings test :-}</h2>
     <div id="command-center" class="">
-      <h3>Type your name and hit enter to begin the test!</h3>
+      <p id="description"><i>You have one minute for the test.<br>
+        The countdown starts as soon as you type first word and hit space. Then just continue typing ;-)</i></p>
+      <hr>
+      <div class="bar">
+        <div id="left-wing">
+          <span id="word-count"></span>
+          <span id="time-count">
+            <span id="tc-60" onclick="setTimeCount(60)">60</span> seconds left
+          </span>
+        </div>
+        <div id="right-wing">WPM: XX / ACC: XX</div>
+      </div>
       <div id="typing-area">
+        <div id="text-display"></div>
         <div class="bar">
           <input id="input-field" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" tabindex="1"/>
+          <button id="redo-button" onclick="setText()" tabindex="2">redo</button>
         </div>
       </div>
       <table id="scoreboard">
@@ -53,24 +66,7 @@
       <a href="https://github.com/sashasimkin/typings" target="_blank" tabindex="4">source</a>/
       <div id="show-themes"class="button" onClick="showThemeCenter();" tabindex="5">themes</div>
     </div>
-    <script>
-      let usernameEl = document.querySelector('#input-field');
-      usernameEl.focus();
-
-      function initTest() {
-        localStorage.setItem('username', usernameEl.value);
-
-        document.location = 'typetype.html';
-      }
-      document.querySelector('#input-field').onkeyup = function (e) {
-          if (!e) e = window.event;
-          var keyCode = e.keyCode || e.which;
-          if (keyCode == '13') {
-            initTest();
-            return false;
-          }
-        }
-    </script>
+    <script src="main.js"></script>
     <script src="scores.js"></script>
   </body>
 </html>

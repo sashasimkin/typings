@@ -1,6 +1,7 @@
 // Get document element
 const textDisplay = document.querySelector('#text-display');
 const inputField = document.querySelector('#input-field');
+const descriptionEl = document.querySelector('#description');
 
 // Initialize typing mode variables
 let typingMode = 'wordcount';
@@ -227,6 +228,48 @@ function showResult() {
   }
   let wpm = Math.floor(words / minute);
   document.querySelector('#right-wing').innerHTML = `WPM: ${wpm} / ACC: ${acc}`;
+
+  descriptionEl.originalText = descriptionEl.textContent;
+  descriptionEl.textContent = 'Nice one! Hit enter to try again, or hit escape to quit the game';
+  descriptionEl.classList.add('completed');
+  let username = localStorage.getItem('username');
+
+  // Calculate if this is a higher score and redraw the table
+  let playersData = JSON.parse(localStorage.getItem('playersData')) || {};
+  let currentScore = {
+    'wpm': wpm,
+    'acc': acc,
+  };
+  if (playersData.hasOwnProperty(username)) {
+    let prevScore = playersData[username];
+    let tmpScores = [prevScore, currentScore];
+    sortScores(tmpScores);
+
+    currentScore = tmpScores[0];
+  }
+  playersData[username] = currentScore;
+  localStorage.setItem('playersData', JSON.stringify(playersData));
+
+  displayScores();
+
+  inputField.onkeydown = function (e) {
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+
+    if (keyCode == '13') {  // Try again
+      descriptionEl.classList.remove('completed');
+      descriptionEl.textContent = descriptionEl.originalText;
+      setText();
+
+      return false;
+    } else if (keyCode === 27) {  // Go back
+      localStorage.setItem('username', '');
+      // Redirect home nau
+      window.location = '/typings/';
+
+      return false;
+    }
+  }
 }
 
 // Command actions
